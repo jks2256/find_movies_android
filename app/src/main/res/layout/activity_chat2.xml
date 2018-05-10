@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.movie.movie2.chatting.Chat">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:text="끝내기"
+        android:id="@+id/btnFinish"
+        android:layout_alignParentRight="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="90dp"
+        android:layout_alignParentEnd="true"
+        android:text="지도"
+        android:id="@+id/btnMap"
+        android:layout_alignParentRight="true" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/my_recycler_view2"
+        android:scrollbars="vertical"
+        android:layout_below="@+id/btnFinish"
+        android:layout_above="@+id/etText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#77b2d6"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/btnSend2"
+        android:id="@+id/etText2"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:text="전송"
+        android:id="@+id/btnSend2"
+        android:layout_alignParentRight="true" />
+
+
+</RelativeLayout>

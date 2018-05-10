@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">movie2</string>
+    <string name="title_activity_chat">Chat</string>
+    <string name="title_activity_maps">Map</string>
+</resources>

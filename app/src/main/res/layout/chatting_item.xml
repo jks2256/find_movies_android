@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/custom_item_img"
+        android:src="@drawable/noprofile"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:text="title"
+        android:id="@+id/custom_item_title"/>
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="100dp"
+        android:layout_below="@+id/custom_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="content"
+        android:id="@+id/custom_item_content"/>
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="280dp"
+        android:layout_below="@+id/custom_item_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="date"
+        android:id="@+id/custom_item_date"/>
+
+    <ImageView
+        android:id="@+id/btn_chatting"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="180dp"
+        android:background="@drawable/chat"/>
+
+
+</RelativeLayout>
