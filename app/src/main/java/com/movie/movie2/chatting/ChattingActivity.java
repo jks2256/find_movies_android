@@ -53,13 +53,12 @@ public class ChattingActivity extends AppCompatActivity {
             }
         });
 
-
         listView = (ListView) findViewById(R.id.listView);
         chattingDatas = new ArrayList<ChattingDatas>();
-        chattingDatas.add(new ChattingDatas(null,"title","content","1번째"));
-        chattingDatas.add(new ChattingDatas(null,"title","content","2번째"));
-        chattingDatas.add(new ChattingDatas(null,"title","content","3번째"));
-        chattingDatas.add(new ChattingDatas(null,"title","content","4번째"));
+        chattingDatas.add(new ChattingDatas(null,"강희진","","응ㅋㅋㅋㅋㅋㅋㅋㅋ"));
+        //chattingDatas.add(new ChattingDatas(null,"박은혜","","오예 렬루?"));
+        //chattingDatas.add(new ChattingDatas(null,"하광림","",""));
+        //chattingDatas.add(new ChattingDatas(null,"류가희","",""));
 //        chattingDatas.add(new ChattingDatas(null,"title","content","4번째"));
 //        chattingDatas.add(new ChattingDatas(null,"title","content","4번째"));
 //        chattingDatas.add(new ChattingDatas(null,"title","content","4번째"));

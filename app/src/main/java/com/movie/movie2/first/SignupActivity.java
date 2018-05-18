@@ -30,6 +30,7 @@ public class SignupActivity extends AppCompatActivity {
 
     final int REQ_CODE_SELECT_IMAGE = 100;
 
+
     EditText edt_id;
     EditText edt_email;
     EditText edt_pwd;

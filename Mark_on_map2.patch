@@ -1,0 +1,492 @@
+Index: app/src/main/res/layout/find_item.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/find_item.xml	(revision 8866328170a0cf2688bc7767269de6ca4d3f1431)
++++ app/src/main/res/layout/find_item.xml	(revision )
+@@ -31,7 +31,7 @@
+         android:layout_marginTop="30dp"
+         android:layout_marginLeft="30dp"
+         android:id="@+id/custom_title"
+-        android:text="택시 운전사"/>
++        android:text="어벤져스-인피니티워"/>
+ 
+     <ImageView
+         android:layout_width="wrap_content"
+Index: app/src/main/java/com/movie/movie2/first/SignupActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/movie/movie2/first/SignupActivity.java	(revision 8866328170a0cf2688bc7767269de6ca4d3f1431)
++++ app/src/main/java/com/movie/movie2/first/SignupActivity.java	(revision )
+@@ -30,6 +30,7 @@
+ 
+     final int REQ_CODE_SELECT_IMAGE = 100;
+ 
++
+     EditText edt_id;
+     EditText edt_email;
+     EditText edt_pwd;
+Index: app/src/main/java/com/movie/movie2/MapsActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/movie/movie2/MapsActivity.java	(revision 8866328170a0cf2688bc7767269de6ca4d3f1431)
++++ app/src/main/java/com/movie/movie2/MapsActivity.java	(revision )
+@@ -1,16 +1,25 @@
+ package com.movie.movie2;
+ 
++import android.graphics.Color;
+ import android.location.Location;
+ import android.os.Bundle;
+ import android.support.v4.app.FragmentActivity;
++import android.view.LayoutInflater;
++import android.widget.TextView;
+ 
+ import com.google.android.gms.maps.CameraUpdateFactory;
+ import com.google.android.gms.maps.GoogleMap;
+ import com.google.android.gms.maps.OnMapReadyCallback;
+ import com.google.android.gms.maps.SupportMapFragment;
++import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+ import com.google.android.gms.maps.model.LatLng;
++import com.google.android.gms.maps.model.Marker;
+ import com.google.android.gms.maps.model.MarkerOptions;
+ 
++
++import java.text.NumberFormat;
++import java.util.ArrayList;
++
+ /*
+ import com.google.android.gms.location.FusedLocationProviderClient;
+ import com.google.android.gms.location.LocationCallback;
+@@ -24,7 +33,7 @@
+ 
+     private GoogleMap mMap;
+ 
+-   // private FusedLocationProviderClient mFusedLocationClient;
++    // private FusedLocationProviderClient mFusedLocationClient;
+     private static final int RC_LOCATION = 1;
+     protected Location mLastLocation;
+ 
+@@ -34,7 +43,7 @@
+         super.onCreate(savedInstanceState);
+         setContentView(R.layout.activity_maps);
+ 
+-      //mFusedLocationClient= LocationServices.getFusedLocationProviderClient(this);
++        //mFusedLocationClient= LocationServices.getFusedLocationProviderClient(this);
+ 
+         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+@@ -88,6 +97,7 @@
+             }
+         }
+         */
++
+     /**
+      * Manipulates the map once available.
+      * This callback is triggered when the map is ready to be used.
+@@ -102,9 +112,25 @@
+         mMap = googleMap;
+ 
+         // Add a marker in duksung and move the camera
+-        final LatLng duksung = new LatLng(37.651799, 127.015743 );
+-        mMap.addMarker(new MarkerOptions().position(duksung).title("Marker in duksung"));
+-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(duksung,20));
++       // final LatLng duksung = new LatLng(37.651799, 127.015743);
++
++        for(int idx = 0; idx < 10; idx++) {
++            // 구글 맵에 표시할 마커에 대한 옵션 설정
++            MarkerOptions markerOptions = new MarkerOptions();
++            markerOptions.position(new LatLng(37.651799, 127.015743))
++                    .title("내 위치" + idx)
++                    .snippet("덕성여대입니다");
++
++            mMap.addMarker(markerOptions);
++        }
++        //mMap.addMarker(markerOptions);
++
++       // mMap.moveCamera(CameraUpdateFactory.newLatLng(duksung));
++
++        //mMap.addMarker(new MarkerOptions().position(duksung).title("Marker in duksung"));
++
++       mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(37.651799, 127.015743)));
++
+ 
+ 
+ /*
+@@ -124,7 +150,70 @@
+         });
+ */
+ 
++    }
++    /*
+ 
++    private void setCustomMarkerView() {
+ 
++        marker_root_view = LayoutInflater.from(this).inflate(R.layout.marker_layout, null);
++        tv_marker = (TextView) marker_root_view.findViewById(R.id.tv_marker);
+     }
++
++    private void getSampleMarkerItems() { ArrayList<MarkerItem> sampleList = new ArrayList();
++    sampleList.add(new MarkerItem(37.538523, 126.96568, 2500000));
++    sampleList.add(new MarkerItem(37.527523, 126.96568, 100000));
++    sampleList.add(new MarkerItem(37.549523, 126.96568, 15000));
++    sampleList.add(new MarkerItem(37.538523, 126.95768, 5000));
++    for (MarkerItem markerItem : sampleList) {
++        addMarker(markerItem, false);
++    }
++    }
++
++    private Marker addMarker(MarkerItem markerItem, boolean isSelectedMarker) {
++
++
++        LatLng position = new LatLng(markerItem.getLat(), markerItem.getLon());
++        int price = markerItem.getPrice();
++        String formatted = NumberFormat.getCurrencyInstance().format((price));
++
++        tv_marker.setText(formatted);
++
++        if (isSelectedMarker) {
++            tv_marker.setBackgroundResource(R.drawable.ic_marker_phone_blue);
++            tv_marker.setTextColor(Color.WHITE);
++        } else {
++            tv_marker.setBackgroundResource(R.drawable.ic_marker_phone);
++            tv_marker.setTextColor(Color.BLACK);
++        }
++
++        MarkerOptions markerOptions = new MarkerOptions();
++        markerOptions.title(Integer.toString(price));
++        markerOptions.position(position);
++        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(this, marker_root_view)));
++
++
++        return mMap.addMarker(markerOptions);
++
++    }
++
++/*
++    // View를 Bitmap으로 변환
++    private Bitmap createDrawableFromView(Context context, View view) {
++
++        DisplayMetrics displayMetrics = new DisplayMetrics();
++        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
++        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
++        view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
++        view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
++        view.buildDrawingCache();
++        Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
++
++        Canvas canvas = new Canvas(bitmap);
++        view.draw(canvas);
++
++        return bitmap;
++    }
++
++*/
+ }
++
+Index: app/src/main/java/com/movie/movie2/chatting/ChattingActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/movie/movie2/chatting/ChattingActivity.java	(revision 8866328170a0cf2688bc7767269de6ca4d3f1431)
++++ app/src/main/java/com/movie/movie2/chatting/ChattingActivity.java	(revision )
+@@ -53,13 +53,12 @@
+             }
+         });
+ 
+-
+         listView = (ListView) findViewById(R.id.listView);
+         chattingDatas = new ArrayList<ChattingDatas>();
+-        chattingDatas.add(new ChattingDatas(null,"title","content","1번째"));
+-        chattingDatas.add(new ChattingDatas(null,"title","content","2번째"));
+-        chattingDatas.add(new ChattingDatas(null,"title","content","3번째"));
+-        chattingDatas.add(new ChattingDatas(null,"title","content","4번째"));
++        chattingDatas.add(new ChattingDatas(null,"강희진","","응ㅋㅋㅋㅋㅋㅋㅋㅋ"));
++        //chattingDatas.add(new ChattingDatas(null,"박은혜","","오예 렬루?"));
++        //chattingDatas.add(new ChattingDatas(null,"하광림","",""));
++        //chattingDatas.add(new ChattingDatas(null,"류가희","",""));
+ //        chattingDatas.add(new ChattingDatas(null,"title","content","4번째"));
+ //        chattingDatas.add(new ChattingDatas(null,"title","content","4번째"));
+ //        chattingDatas.add(new ChattingDatas(null,"title","content","4번째"));
+Index: app/src/main/java/com/movie/movie2/friends/MainActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/movie/movie2/friends/MainActivity.java	(revision 8866328170a0cf2688bc7767269de6ca4d3f1431)
++++ app/src/main/java/com/movie/movie2/friends/MainActivity.java	(revision )
+@@ -78,11 +78,11 @@
+             }
+         });
+ 
+-        friendDatas.add(new FriendDatas(null,"이거","exmaple"));
+-        friendDatas.add(new FriendDatas(null,"이거","exmaple"));
+-        friendDatas.add(new FriendDatas(null,"이거","exmaple"));
+-        friendDatas.add(new FriendDatas(null,"이거","exmaple"));
+-        friendDatas.add(new FriendDatas(null,"이거","exmaple"));
++        friendDatas.add(new FriendDatas(null,"이연재",""));
++        friendDatas.add(new FriendDatas(null,"강민성","흠...!"));
++        friendDatas.add(new FriendDatas(null,"강민식","2016.9.6~2018.6.5"));
++        friendDatas.add(new FriendDatas(null,"강찬호",""));
++        friendDatas.add(new FriendDatas(null,"강희진",""));
+ //        friendDatas.add(new FriendDatas(null,"이거","exmaple"));
+ //        friendDatas.add(new FriendDatas(null,"이거","exmaple"));
+ //        friendDatas.add(new FriendDatas(null,"이거","exmaple"));
+Index: app/src/main/java/com/movie/movie2/MapActivity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/movie/movie2/MapActivity.java	(revision 8866328170a0cf2688bc7767269de6ca4d3f1431)
++++ app/src/main/java/com/movie/movie2/MapActivity.java	(revision )
+@@ -14,6 +14,7 @@
+ import com.google.android.gms.maps.GoogleMap;
+ import com.google.android.gms.maps.OnMapReadyCallback;
+ import com.google.android.gms.maps.SupportMapFragment;
++import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+ import com.google.android.gms.maps.model.CameraPosition;
+ import com.google.android.gms.maps.model.LatLng;
+ import com.google.android.gms.maps.model.MarkerOptions;
+@@ -116,11 +117,81 @@
+         mMap = googleMap;
+ 
+         // Add a marker in duksung and move the camera
+-        final LatLng duksung = new LatLng(37.651799, 127.015743 );
++       /*
++        LatLng duksung = new LatLng(37.651799, 127.015743 );
++        LatLng cgv = new LatLng(37.651798, 127.015742 );
++
+         mMap.addMarker(new MarkerOptions().position(duksung).title("Marker in duksung"));
+         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(duksung,20));
++*/
++        LatLng duksung = new LatLng(37.651799, 127.015743 );
++        LatLng suyu = new LatLng(37.651161, 127.015974   );
++        LatLng cgv = new LatLng(37.642319, 127.029821 );
++        LatLng megabox = new LatLng(37.654600, 127.038738 );
++        LatLng lotte = new LatLng(37.635787, 127.023789  );
++        LatLng cgv2 = new LatLng(37.612055, 127.030738 );
++        LatLng lotte2 = new LatLng(37.654801, 127.061067  );
+ 
+ 
++        MarkerOptions markerOptions = new MarkerOptions();
++        MarkerOptions markerOptions1 = new MarkerOptions();
++        MarkerOptions markerOptions2 = new MarkerOptions();
++        MarkerOptions markerOptions3 = new MarkerOptions();
++        MarkerOptions markerOptions4 = new MarkerOptions();
++        MarkerOptions markerOptions5 = new MarkerOptions();
++        MarkerOptions markerOptions6 = new MarkerOptions();
++
++        markerOptions.position(duksung)
++                .title("내 위치" )
++                .snippet("덕성여자대학교");
++
++        markerOptions1.position(suyu)
++                .title("너 위치" )
++                .snippet("수유역");
++
++        markerOptions2.position(cgv)
++                .title("수유 cgv" )
++                .snippet("어벤져스 5:15")
++                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
++                .alpha(0.8f);
++
++        markerOptions3.position(megabox)
++                .title("창동 메가박스" )
++                .snippet("그날, 바다 5:30")
++                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
++                .alpha(0.8f);
++
++        markerOptions4.position(lotte)
++                .title("수유 롯데시네마" )
++                .snippet("챔피언 5:20")
++                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
++                .alpha(0.8f);
++
++        markerOptions5.position(cgv2)
++                .title("미아 cgv" )
++                .snippet("그날, 바다 5:30")
++                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
++                .alpha(0.8f);
++
++        markerOptions6.position(lotte2)
++                .title("노원 롯데시네마" )
++                .snippet("어벤져스 5:50")
++                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
++                .alpha(0.8f);
++
++        mMap.addMarker(markerOptions);
++        mMap.addMarker(markerOptions1);
++        mMap.addMarker(markerOptions2);
++        mMap.addMarker(markerOptions3);
++        mMap.addMarker(markerOptions4);
++        mMap.addMarker(markerOptions5);
++        mMap.addMarker(markerOptions6);
++
++        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(duksung,15));
++
++
++        // Add a marker in duksung and move the camera
++        // final LatLng duksung = new LatLng(37.651799, 127.015743);
+ /*
+         Button button = (Button)findViewById(R.id.button3D);
+         button.setOnClickListener(new View.OnClickListener() {
+Index: app/src/main/res/layout/activity_map2.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/activity_map2.xml	(revision 8866328170a0cf2688bc7767269de6ca4d3f1431)
++++ app/src/main/res/layout/activity_map2.xml	(revision )
+@@ -24,6 +24,7 @@
+ 
+             />
+ 
++
+         <Button
+             android:id="@+id/button3D"
+             android:layout_width="match_parent"
+Index: app/src/main/java/com/movie/movie2/MarkerItem.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/movie/movie2/MarkerItem.java	(revision )
++++ app/src/main/java/com/movie/movie2/MarkerItem.java	(revision )
+@@ -0,0 +1,30 @@
++package com.movie.movie2;
++
++/**
++ * Created by DS on 2018-05-14.
++ */
++
++class MarkerItem {
++    double lat; double lon; int price;
++    public MarkerItem(double lat, double lon, int price) {
++        this.lat = lat; this.lon = lon; this.price = price;
++    }
++    public double getLat() {
++        return lat;
++    }
++    public void setLat(double lat) {
++        this.lat = lat;
++    }
++    public double getLon() {
++        return lon;
++    }
++    public void setLon(double lon) {
++        this.lon = lon;
++    }
++    public int getPrice() {
++        return price;
++    }
++    public void setPrice(int price) {
++        this.price = price;
++    }
++}
+Index: app/src/main/java/MarkerItem.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/MarkerItem.java	(revision )
++++ app/src/main/java/MarkerItem.java	(revision )
+@@ -0,0 +1,29 @@
++/**
++ * Created by DS on 2018-05-14.
++ */
++
++public class MarkerItem{
++    double lat; double lon; int price;
++    public MarkerItem(double lat, double lon, int price) {
++        this.lat = lat; this.lon = lon; this.price = price;
++    }
++    public double getLat() {
++        return lat;
++    }
++    public void setLat(double lat) {
++        this.lat = lat;
++    }
++    public double getLon() {
++        return lon;
++    }
++    public void setLon(double lon) {
++        this.lon = lon;
++    }
++    public int getPrice() {
++        return price;
++    }
++    public void setPrice(int price) {
++        this.price = price;
++    }
++}
++
+Index: app/src/main/res/layout/marker_layout.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/res/layout/marker_layout.xml	(revision )
++++ app/src/main/res/layout/marker_layout.xml	(revision )
+@@ -0,0 +1,14 @@
++<?xml version="1.0" encoding="utf-8"?>
++<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
++    android:layout_width="wrap_content"
++    android:layout_height="wrap_content" >
++    <TextView
++        android:id="@+id/tv_marker"
++        android:layout_width="wrap_content"
++        android:layout_height="wrap_content"
++        android:background="@drawable/ic_marker_phone"
++        android:gravity="center"
++        android:text="13.5만원"
++        android:textSize="16sp"/>
++</FrameLayout>
++
+diff --git app/src/main/res/drawable/ic_marker_phone.png app/src/main/res/drawable/ic_marker_phone.png
+new file mode 100644
+index 0000000000000000000000000000000000000000..11e1cdb8f873fa1ebe7aa1ff8dbbbc284e08d473
+GIT binary patch
+literal 1888
+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
+aDE|Sd)c%xg=oe%F0000<MNUMnLSTZaoOB%k
+

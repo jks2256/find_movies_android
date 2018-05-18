@@ -78,11 +78,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        friendDatas.add(new FriendDatas(null,"이거","exmaple"));
-        friendDatas.add(new FriendDatas(null,"이거","exmaple"));
-        friendDatas.add(new FriendDatas(null,"이거","exmaple"));
-        friendDatas.add(new FriendDatas(null,"이거","exmaple"));
-        friendDatas.add(new FriendDatas(null,"이거","exmaple"));
+        friendDatas.add(new FriendDatas(null,"이연재",""));
+        friendDatas.add(new FriendDatas(null,"강민성","흠...!"));
+        friendDatas.add(new FriendDatas(null,"강민식","2016.9.6~2018.6.5"));
+        friendDatas.add(new FriendDatas(null,"강찬호",""));
+        friendDatas.add(new FriendDatas(null,"강희진",""));
 //        friendDatas.add(new FriendDatas(null,"이거","exmaple"));
 //        friendDatas.add(new FriendDatas(null,"이거","exmaple"));
 //        friendDatas.add(new FriendDatas(null,"이거","exmaple"));

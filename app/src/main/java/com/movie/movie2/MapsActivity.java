@@ -1,15 +1,24 @@
 package com.movie.movie2;
 
+import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.LayoutInflater;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+
+import java.text.NumberFormat;
+import java.util.ArrayList;
 
 /*
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -24,7 +33,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
 
-   // private FusedLocationProviderClient mFusedLocationClient;
+    // private FusedLocationProviderClient mFusedLocationClient;
     private static final int RC_LOCATION = 1;
     protected Location mLastLocation;
 
@@ -34,7 +43,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
-      //mFusedLocationClient= LocationServices.getFusedLocationProviderClient(this);
+        //mFusedLocationClient= LocationServices.getFusedLocationProviderClient(this);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -88,6 +97,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
         */
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -102,9 +112,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in duksung and move the camera
-        final LatLng duksung = new LatLng(37.651799, 127.015743 );
-        mMap.addMarker(new MarkerOptions().position(duksung).title("Marker in duksung"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(duksung,20));
+       // final LatLng duksung = new LatLng(37.651799, 127.015743);
+
+        for(int idx = 0; idx < 10; idx++) {
+            // 구글 맵에 표시할 마커에 대한 옵션 설정
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(new LatLng(37.651799, 127.015743))
+                    .title("내 위치" + idx)
+                    .snippet("덕성여대입니다");
+
+            mMap.addMarker(markerOptions);
+        }
+        //mMap.addMarker(markerOptions);
+
+       // mMap.moveCamera(CameraUpdateFactory.newLatLng(duksung));
+
+        //mMap.addMarker(new MarkerOptions().position(duksung).title("Marker in duksung"));
+
+       mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(37.651799, 127.015743)));
+
 
 
 /*
@@ -124,7 +150,70 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
 */
 
+    }
+    /*
 
+    private void setCustomMarkerView() {
+
+        marker_root_view = LayoutInflater.from(this).inflate(R.layout.marker_layout, null);
+        tv_marker = (TextView) marker_root_view.findViewById(R.id.tv_marker);
+    }
+
+    private void getSampleMarkerItems() { ArrayList<MarkerItem> sampleList = new ArrayList();
+    sampleList.add(new MarkerItem(37.538523, 126.96568, 2500000));
+    sampleList.add(new MarkerItem(37.527523, 126.96568, 100000));
+    sampleList.add(new MarkerItem(37.549523, 126.96568, 15000));
+    sampleList.add(new MarkerItem(37.538523, 126.95768, 5000));
+    for (MarkerItem markerItem : sampleList) {
+        addMarker(markerItem, false);
+    }
+    }
+
+    private Marker addMarker(MarkerItem markerItem, boolean isSelectedMarker) {
+
+
+        LatLng position = new LatLng(markerItem.getLat(), markerItem.getLon());
+        int price = markerItem.getPrice();
+        String formatted = NumberFormat.getCurrencyInstance().format((price));
+
+        tv_marker.setText(formatted);
+
+        if (isSelectedMarker) {
+            tv_marker.setBackgroundResource(R.drawable.ic_marker_phone_blue);
+            tv_marker.setTextColor(Color.WHITE);
+        } else {
+            tv_marker.setBackgroundResource(R.drawable.ic_marker_phone);
+            tv_marker.setTextColor(Color.BLACK);
+        }
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.title(Integer.toString(price));
+        markerOptions.position(position);
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(createDrawableFromView(this, marker_root_view)));
+
+
+        return mMap.addMarker(markerOptions);
 
     }
+
+/*
+    // View를 Bitmap으로 변환
+    private Bitmap createDrawableFromView(Context context, View view) {
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
+        view.buildDrawingCache();
+        Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+
+        return bitmap;
+    }
+
+*/
 }
+
