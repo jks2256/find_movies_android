@@ -29,6 +29,8 @@ import static android.widget.Toast.makeText;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private String TAG = LoginActivity.class.getSimpleName();
+
     EditText edt_id;
     EditText edt_pwd;
     ImageView btn_login;
@@ -40,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.e(TAG, "onCreate in LoginActivity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
